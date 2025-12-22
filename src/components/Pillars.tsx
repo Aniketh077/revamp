@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const pillars = [
   {
@@ -61,6 +62,8 @@ export const pillars = [
 export default function Pillars() {
   const [activePillar, setActivePillar] = useState<number | null>(1);
   const [isAnimating, setIsAnimating] = useState(false);
+  const titleRef = useScrollReveal<HTMLDivElement>();
+  const detailRef = useScrollReveal<HTMLDivElement>();
 
   const handlePillarClick = (pillarId: number) => {
     if (pillarId !== activePillar && !isAnimating) {
@@ -80,7 +83,7 @@ export default function Pillars() {
       <div className="absolute bottom-0 left-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-brand-orange/5 rounded-full blur-3xl"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-12 sm:mb-16 text-center">
+        <div ref={titleRef} className="mb-12 sm:mb-16 text-center reveal-on-scroll">
           <div className="inline-block mb-4">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-brand-orange via-brand-purple to-brand-green blur-lg opacity-30"></div>
@@ -94,53 +97,18 @@ export default function Pillars() {
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           <div className="space-y-3 sm:space-y-4">
-            {pillars.map((pillar) => {
-              const isActive = activePillar === pillar.id;
-
-              return (
-                <div
-                  key={pillar.id}
-                  onClick={() => handlePillarClick(pillar.id)}
-                  className={`pillar-card p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-gray-50 to-white border transition-all duration-500 cursor-pointer hover:shadow-lg group relative overflow-hidden ${
-                    isActive
-                      ? 'border-brand-purple shadow-xl scale-[1.02]'
-                      : 'border-gray-100 shadow-sm hover:border-gray-200'
-                  }`}
-                >
-                  <div className="flex justify-between items-start mb-3 relative z-10">
-                    <span className={`text-xs font-bold uppercase transition-colors duration-500 ${
-                      isActive ? 'text-brand-purple' : 'text-gray-300'
-                    }`}>
-                      {pillar.number}
-                    </span>
-                    <ArrowRight
-                      className={`w-4 h-4 transition-all duration-500 ${
-                        isActive
-                          ? 'text-brand-purple translate-x-0 opacity-100'
-                          : 'text-gray-400 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
-                      }`}
-                    />
-                  </div>
-
-                  <h3 className={`text-base sm:text-lg font-semibold mb-1.5 transition-colors duration-300 ${
-                    isActive ? 'text-brand-purple' : 'text-brand-black group-hover:text-brand-purple'
-                  }`}>
-                    {pillar.title}
-                  </h3>
-                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{pillar.description}</p>
-
-                  <div
-                    className={`absolute bottom-0 left-0 w-full h-1 transition-all duration-500 origin-left ${
-                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50'
-                    }`}
-                    style={{ backgroundColor: isActive ? '#702594' : '#e0e0e0' }}
-                  ></div>
-                </div>
-              );
-            })}
+            {pillars.map((pillar, index) => (
+              <PillarCard
+                key={pillar.id}
+                pillar={pillar}
+                isActive={activePillar === pillar.id}
+                onClick={() => handlePillarClick(pillar.id)}
+                delay={index * 100}
+              />
+            ))}
           </div>
 
-          <div className="lg:sticky lg:top-24 lg:self-start h-fit">
+          <div ref={detailRef} className="lg:sticky lg:top-24 lg:self-start h-fit reveal-on-scroll">
             {selectedPillar && (
               <div
                 className={`detail-panel bg-gradient-to-br from-gray-50 to-white border-2 border-brand-purple rounded-3xl p-8 sm:p-10 shadow-2xl cursor-purple transition-all duration-300 flex flex-col ${
@@ -299,5 +267,56 @@ export default function Pillars() {
         }
       `}</style>
     </section>
+  );
+}
+
+function PillarCard({ pillar, isActive, onClick, delay }: {
+  pillar: typeof pillars[0];
+  isActive: boolean;
+  onClick: () => void;
+  delay: number;
+}) {
+  const ref = useScrollReveal<HTMLDivElement>();
+
+  return (
+    <div
+      ref={ref}
+      onClick={onClick}
+      className={`pillar-card p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-gray-50 to-white border transition-all duration-500 cursor-pointer hover:shadow-lg group relative overflow-hidden reveal-on-scroll ${
+        isActive
+          ? 'border-brand-purple shadow-xl scale-[1.02]'
+          : 'border-gray-100 shadow-sm hover:border-gray-200'
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <div className="flex justify-between items-start mb-3 relative z-10">
+        <span className={`text-xs font-bold uppercase transition-colors duration-500 ${
+          isActive ? 'text-brand-purple' : 'text-gray-300'
+        }`}>
+          {pillar.number}
+        </span>
+        <ArrowRight
+          className={`w-4 h-4 transition-all duration-500 ${
+            isActive
+              ? 'text-brand-purple translate-x-0 opacity-100'
+              : 'text-gray-400 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
+          }`}
+        />
+      </div>
+
+      <h3 className={`text-base sm:text-lg font-semibold mb-1.5 transition-colors duration-300 ${
+        isActive ? 'text-brand-purple' : 'text-brand-black group-hover:text-brand-purple'
+      }`}>
+        {pillar.title}
+      </h3>
+      <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{pillar.description}</p>
+
+      <div
+        className={`absolute bottom-0 left-0 w-full h-1 transition-all duration-500 origin-left ${
+          isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50'
+        }`}
+        style={{ backgroundColor: isActive ? '#702594' : '#e0e0e0' }}
+      ></div>
+    </div>
   );
 }

@@ -139,52 +139,52 @@ export default function Calculator() {
   };
 
   return (
-    <section id="calculator" className="py-24 px-6 bg-gradient-to-b from-brand-black to-gray-900 overflow-hidden relative">
+    <section id="calculator" className="py-16 px-6 bg-gradient-to-b from-brand-black to-gray-900 overflow-hidden relative">
       <div ref={ref} className="max-w-5xl mx-auto relative z-10 reveal-on-scroll">
-        <div className="text-center mb-10">
-          <span className="text-brand-orange text-xs font-bold uppercase tracking-widest mb-4 block">FaaS Economics</span>
-          <h2 className="text-4xl md:text-5xl font-semibold tracking-tighter mb-4 text-white">
+        <div className="text-center mb-6">
+          <span className="text-brand-orange text-xs font-bold uppercase tracking-widest mb-3 block">FaaS Economics</span>
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tighter mb-3 text-white">
             Calculate Your ROI.
           </h2>
-          <p className="text-gray-300 text-lg">Comprehensive savings analysis for Factory-as-a-Service deployment.</p>
+          <p className="text-gray-300 text-base">Comprehensive savings analysis for Factory-as-a-Service deployment.</p>
         </div>
 
         {(roiMonths > 0 || savingsAfterFaasINR > 0) && (
-          <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gradient-to-br from-brand-green via-green-600 to-green-700 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-[1.02] group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
+          <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="bg-gradient-to-br from-brand-green via-green-600 to-green-700 rounded-xl p-4 text-white relative overflow-hidden shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/10 rounded-full blur-xl"></div>
               <div className="relative z-10">
-                <div className="text-xs font-bold uppercase tracking-widest mb-2 text-white/90">ROI Period</div>
-                <div className="text-4xl font-black mb-1">{roiMonths > 0 ? roiMonths.toFixed(1) : '--'}</div>
-                <div className="text-sm font-medium text-white/90">Months to Break Even</div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-1 text-white/90">ROI Period</div>
+                <div className="text-3xl font-black mb-1">{roiMonths > 0 ? roiMonths.toFixed(1) : '--'}</div>
+                <div className="text-xs font-medium text-white/90">Months to Break Even</div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-brand-purple via-purple-600 to-purple-700 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-[1.02] group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
+            <div className="bg-gradient-to-br from-brand-purple via-purple-600 to-purple-700 rounded-xl p-4 text-white relative overflow-hidden shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/10 rounded-full blur-xl"></div>
               <div className="relative z-10">
-                <div className="text-xs font-bold uppercase tracking-widest mb-2 text-white/90">Annual Savings</div>
-                <div className="text-3xl font-black mb-1 truncate">{formatMoney(savingsAfterFaasINR)}</div>
-                <div className="text-sm font-medium text-white/90">After FaaS Fees</div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-1 text-white/90">Annual Savings</div>
+                <div className="text-2xl font-black mb-1 truncate">{formatMoney(savingsAfterFaasINR)}</div>
+                <div className="text-xs font-medium text-white/90">After FaaS Fees</div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-brand-orange via-orange-600 to-orange-700 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-[1.02] group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
+            <div className="bg-gradient-to-br from-brand-orange via-orange-600 to-orange-700 rounded-xl p-4 text-white relative overflow-hidden shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 bg-black/10 rounded-full blur-xl"></div>
               <div className="relative z-10">
-                <div className="text-xs font-bold uppercase tracking-widest mb-2 text-white/90">Total Investment</div>
-                <div className="text-3xl font-black mb-1 truncate">{formatMoney(totalCostClientINR)}</div>
-                <div className="text-sm font-medium text-white/90">Client Cost</div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-1 text-white/90">Total Investment</div>
+                <div className="text-2xl font-black mb-1 truncate">{formatMoney(totalCostClientINR)}</div>
+                <div className="text-xs font-medium text-white/90">Client Cost</div>
               </div>
             </div>
           </div>
         )}
 
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-2 rounded-3xl border border-gray-700 shadow-2xl">
-          <div className="bg-black/40 backdrop-blur rounded-2xl p-4 md:p-6 border border-gray-800">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-1.5 rounded-2xl border border-gray-700 shadow-2xl">
+          <div className="bg-black/40 backdrop-blur rounded-xl p-3 md:p-4 border border-gray-800">
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-r from-brand-orange via-brand-purple to-brand-green"></div>
@@ -379,14 +379,14 @@ export default function Calculator() {
 function ResultField({ label, value, highlight = false }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className="group">
-      <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2 text-gray-300">{label}</label>
-      <div className={`relative rounded-xl p-4 transition-all duration-300 ${
+      <label className="block text-[10px] font-semibold uppercase tracking-widest mb-1.5 text-gray-300">{label}</label>
+      <div className={`relative rounded-lg p-3 transition-all duration-300 ${
         highlight
           ? 'bg-gradient-to-r from-brand-green/20 to-brand-green/10 border-2 border-brand-green shadow-lg shadow-brand-green/20 group-hover:shadow-xl group-hover:shadow-brand-green/30'
           : 'bg-gray-800/50 border border-gray-700 group-hover:border-brand-purple/50 group-hover:shadow-lg'
       }`}>
-        {highlight && <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full blur-xl"></div>}
-        <div className={`text-lg font-bold truncate relative z-10 ${
+        {highlight && <div className="absolute top-0 right-0 w-12 h-12 bg-white/5 rounded-full blur-lg"></div>}
+        <div className={`text-base font-bold truncate relative z-10 ${
           highlight ? 'text-brand-green' : 'text-white'
         }`}>
           {value || '—'}
