@@ -1,17 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function Hero() {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const heroRef = useScrollReveal<HTMLDivElement>();
-
-  const rotatingWords = ['Chemistry', 'Manufacturing', 'Production', 'Scale-up'];
+  const wrapperRef = useRef<HTMLSpanElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    // Rotating words animation
+    const flowTarget = document.getElementById('flow-text');
+    if (flowTarget) {
+      const phrase = 'Means Going With the Flow.';
+      let charCount = 0;
+
+      const wrappedHtml = phrase
+        .split(' ')
+        .map((word) => {
+          const letters = word
+            .split('')
+            .map((char) => {
+              return `<span class="char" style="--char-index: ${charCount++}">${char}</span>`;
+            })
+            .join('');
+          return `<span class="word">${letters}</span>`;
+        })
+        .join('');
+
+      flowTarget.innerHTML = wrappedHtml;
+      flowTarget.classList.remove('opacity-0');
+    }
+
+    const words = ['Chemistry', 'Manufacturing', 'Production', 'Scale-up'];
+    let wordIndex = 0;
+
     const interval = setInterval(() => {
-      setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
+      if (wrapperRef.current && textRef.current) {
+        wrapperRef.current.style.opacity = '0';
+        wrapperRef.current.style.transform = 'translateY(10px)';
+
+        setTimeout(() => {
+          wordIndex = (wordIndex + 1) % words.length;
+          if (textRef.current) {
+            textRef.current.textContent = words[wordIndex];
+          }
+
+          if (wrapperRef.current) {
+            wrapperRef.current.style.opacity = '1';
+            wrapperRef.current.style.transform = 'translateY(0)';
+          }
+        }, 500);
+      }
     }, 3000);
 
     return () => clearInterval(interval);
@@ -51,54 +89,59 @@ export default function Hero() {
             <span className="text-[10px] sm:text-xs font-semibold tracking-wide uppercase text-gray-600">Factory-as-a-Service</span>
           </div>
 
-          {/* Headline with Rotating Words Animation */}
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.3] mb-6 md:mb-8 text-brand-black px-4 sm:px-0"
-            aria-label="Join the Flow Revolution, smart chemistry means going with the flow."
-          >
-            <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
-              Join the{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
-                Flow Revolution
-              </span>
-              ,
-            </span>
+          {/* Headline with Flow Animation */}
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.3] mb-8 text-brand-black">
+            Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">Flow Revolution,</span>
             <br />
-            <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
-              Smart{' '}
-            </span>
-            <span className="rotating-word-container inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-              {rotatingWords.map((word, index) => (
-                <span
-                  key={word}
-                  className={`rotating-word ${index === currentWordIndex ? 'active' : ''}`}
+
+            {/* Static prefix */}
+            <span>Smart </span>
+
+            {/* Layout Stabilizer: Fixed width to prevent sentence shift */}
+            <span className="inline-block w-[9em] text-center align-bottom mx-1">
+              {/* Dynamic Wrapper: Shrinks/Grows with text, Animates opacity/transform */}
+              <span
+                ref={wrapperRef}
+                className="relative inline-block transition-all duration-500 opacity-100 translate-y-0"
+              >
+                {/* Text Target */}
+                <span ref={textRef} className="text-brand-purple relative z-10">
+                  Chemistry
+                </span>
+                {/* Chemical Bond Underline SVG (Matches width of wrapper) */}
+                <svg
+                  className="absolute -bottom-2 left-0 w-full h-4 text-brand-purple/50"
+                  viewBox="0 0 100 15"
+                  preserveAspectRatio="none"
                 >
-                  {word}
-                  <svg className="chemical-bond-underline" viewBox="0 0 100 15" preserveAspectRatio="none">
-                    <path vectorEffect="non-scaling-stroke" d="M0 10 L10 2 L20 10 L30 2 L40 10 L50 2 L60 10 L70 2 L80 10 L90 2 L100 10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              ))}
+                  <path
+                    vectorEffect="non-scaling-stroke"
+                    d="M0 10 L10 2 L20 10 L30 2 L40 10 L50 2 L60 10 L70 2 L80 10 L90 2 L100 10"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </span>
-            <br />
-            <span className="flow-text inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
-              {'means going with the flow.'.split('').map((char, i) => (
-                <span key={i} className="flow-char" style={{ '--char-index': i } as React.CSSProperties}>
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
+
+            {/* Remainder of sentence with Flow Animation */}
+            <span id="flow-text" className="text-brand-black inline-block opacity-0">
+              Means Going With the Flow.
             </span>
           </h1>
 
           {/* Subtext */}
-          <p className="text-base sm:text-lg md:text-xl text-gray-500 font-normal max-w-3xl mx-auto leading-relaxed mb-8 md:mb-10 px-4 sm:px-0">
-            We remove the fear of heavy upfront investment by letting you scale step-by-step from feasibility to full production.{' '}
-            <span className="hidden sm:inline"><br /></span>
+          <p className="text-xl text-gray-500 font-normal max-w-3xl mx-auto leading-relaxed mb-10">
+            Scale from feasibility to production without heavy upfront investment.
+            <br />
             Manufacture products at <span className="text-brand-black font-medium">40% below</span> current market costs.
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => {
                 const element = document.querySelector('#ai-architect');
@@ -106,7 +149,7 @@ export default function Hero() {
                   element.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="bg-gradient-to-r from-brand-purple to-brand-green text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-semibold hover:shadow-2xl hover:shadow-brand-purple/50 transition-all shadow-lg hover:-translate-y-0.5 w-full sm:w-auto sm:min-w-[180px]"
+              className="bg-brand-black text-white px-8 py-4 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 min-w-[180px]"
             >
               Start Feasibility Audit
             </button>
@@ -117,7 +160,7 @@ export default function Hero() {
                   element.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="text-brand-black px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-medium hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all flex items-center gap-2 w-full sm:w-auto sm:min-w-[180px] justify-center"
+              className="text-brand-black px-8 py-4 rounded-full text-sm font-medium hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all flex items-center gap-2 min-w-[180px] justify-center"
             >
               Explore Platform <ArrowRight className="w-4 h-4 text-brand-purple" />
             </button>
@@ -126,49 +169,18 @@ export default function Hero() {
       </section>
 
       <style>{`
-        .rotating-word-container {
-          position: relative;
+        .word {
           display: inline-block;
-          min-width: 140px;
-          height: 1.5em;
-          vertical-align: baseline;
-        }
-
-        .rotating-word {
-          position: absolute;
-          left: 0;
-          top: 0;
-          opacity: 0;
-          transform: translateY(20px) scale(0.95);
-          transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
           white-space: nowrap;
-          color: #702594;
+          margin-right: 0.25em;
+          vertical-align: top;
         }
 
-        .rotating-word.active {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-
-        .chemical-bond-underline {
-          position: absolute;
-          bottom: -8px;
-          left: 0;
-          width: 100%;
-          height: 16px;
-          color: rgba(112, 37, 148, 0.5);
-          pointer-events: none;
-        }
-
-        .flow-text {
-          white-space: nowrap;
-        }
-
-        .flow-char {
+        .char {
           display: inline-block;
           opacity: 0;
           animation: flowReveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-          animation-delay: calc(var(--char-index) * 0.04s + 0.7s);
+          animation-delay: calc(var(--char-index) * 0.04s);
           will-change: transform, opacity, filter;
         }
 
@@ -182,30 +194,6 @@ export default function Hero() {
             opacity: 1;
             transform: translateX(0) scaleX(1);
             filter: blur(0);
-          }
-        }
-
-        @media (min-width: 640px) {
-          .rotating-word-container {
-            min-width: 180px;
-          }
-        }
-
-        @media (min-width: 768px) {
-          .rotating-word-container {
-            min-width: 220px;
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .rotating-word-container {
-            min-width: 260px;
-          }
-        }
-
-        @media (min-width: 1280px) {
-          .rotating-word-container {
-            min-width: 320px;
           }
         }
       `}</style>
