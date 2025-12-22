@@ -5,8 +5,11 @@ import CalBookingModal from './CalBookingModal';
 
 export default function Hero() {
   const [showCalModal, setShowCalModal] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const flowTextRef = useRef<HTMLSpanElement>(null);
   const heroRef = useScrollReveal<HTMLDivElement>();
+
+  const rotatingWords = ['Revolution', 'Transformation', 'Innovation', 'Evolution'];
 
   useEffect(() => {
     // Flow text animation
@@ -24,6 +27,15 @@ export default function Hero() {
       flowTextRef.current.innerHTML = wrappedHtml;
       flowTextRef.current.classList.remove('opacity-0');
     }
+  }, []);
+
+  useEffect(() => {
+    // Rotating words animation
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -61,15 +73,29 @@ export default function Hero() {
           </div>
 
           {/* Headline with Flow Animation */}
-          <h1 
+          <h1
             className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.1] mb-8 text-brand-black"
             aria-label="Join the Flow Revolution by going with the flow."
           >
-            Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">Flow Revolution</span>
+            Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green inline-block">
+              <span className="inline-block relative">
+                Flow{' '}
+                <span className="rotating-word-container inline-block relative">
+                  {rotatingWords.map((word, index) => (
+                    <span
+                      key={word}
+                      className={`rotating-word ${index === currentWordIndex ? 'active' : ''}`}
+                    >
+                      {word}
+                    </span>
+                  ))}
+                </span>
+              </span>
+            </span>
             <br />
-            <span 
+            <span
               ref={flowTextRef}
-              id="flow-text" 
+              id="flow-text"
               className="text-brand-black inline-block opacity-0"
             >
               by going with the flow.
@@ -118,7 +144,7 @@ export default function Hero() {
           margin-right: 0.25em;
           vertical-align: top;
         }
-        
+
         .char {
           display: inline-block;
           opacity: 0;
@@ -126,17 +152,45 @@ export default function Hero() {
           animation-delay: calc(var(--char-index) * 0.04s);
           will-change: transform, opacity, filter;
         }
-        
+
         @keyframes flowReveal {
-          0% { 
-            opacity: 0; 
-            transform: translateX(-15px) scaleX(0.9); 
+          0% {
+            opacity: 0;
+            transform: translateX(-15px) scaleX(0.9);
             filter: blur(4px);
           }
-          100% { 
-            opacity: 1; 
-            transform: translateX(0) scaleX(1); 
+          100% {
+            opacity: 1;
+            transform: translateX(0) scaleX(1);
             filter: blur(0);
+          }
+        }
+
+        .rotating-word-container {
+          min-width: 300px;
+          height: 1.2em;
+          vertical-align: top;
+        }
+
+        .rotating-word {
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          transform: translateY(20px) rotateX(-90deg);
+          transform-origin: center bottom;
+          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          white-space: nowrap;
+        }
+
+        .rotating-word.active {
+          opacity: 1;
+          transform: translateY(0) rotateX(0deg);
+        }
+
+        @media (max-width: 768px) {
+          .rotating-word-container {
+            min-width: 200px;
           }
         }
       `}</style>
