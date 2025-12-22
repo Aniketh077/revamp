@@ -143,57 +143,68 @@ export default function Pillars() {
           <div className="lg:sticky lg:top-24 lg:self-start h-fit">
             {selectedPillar && (
               <div
-                className={`detail-panel bg-gradient-to-br from-gray-50 to-white border-2 border-brand-purple rounded-3xl p-6 sm:p-8 shadow-2xl cursor-purple transition-all duration-300 ${
+                className={`detail-panel bg-gradient-to-br from-gray-50 to-white border-2 border-brand-purple rounded-3xl p-8 sm:p-10 shadow-2xl cursor-purple transition-all duration-300 flex flex-col ${
                   isAnimating ? 'slide-out' : 'slide-in'
                 }`}
-                style={{ minHeight: 'fit-content' }}
+                style={{ minHeight: '800px' }}
               >
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex justify-between items-start mb-6">
                   <span className={`text-sm font-bold uppercase ${selectedPillar.accentColor}`}>
                     {selectedPillar.number}
                   </span>
+                  <div className={`w-12 h-12 rounded-full ${selectedPillar.accentColor.replace('text-', 'bg-')} opacity-10`}></div>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-bold mb-2">{selectedPillar.title}</h3>
-                <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">
+                <h3 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight">{selectedPillar.title}</h3>
+                <p className="text-gray-600 mb-8 text-base sm:text-lg leading-relaxed">
                   {selectedPillar.description}
                 </p>
 
-                <div className="border-t border-gray-200 pt-4">
-                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                <div className="border-t border-gray-200 pt-6 mb-6">
+                  <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
                     Technical Details
                   </h4>
-                  <p className="text-gray-700 leading-relaxed mb-4 text-sm sm:text-base">
+                  <p className="text-gray-700 leading-relaxed mb-6 text-base sm:text-lg">
                     {selectedPillar.detailedDescription}
                   </p>
+                </div>
 
-                  <div className="bg-white rounded-xl p-4 shadow-sm mb-4">
-                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
-                      Key Benefits
-                    </h4>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5`}></div>
-                        <span className="text-gray-700 text-xs sm:text-sm">Industry-leading accuracy and precision</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5`}></div>
-                        <span className="text-gray-700 text-xs sm:text-sm">Comprehensive support and documentation</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5`}></div>
-                        <span className="text-gray-700 text-xs sm:text-sm">Proven results in production environments</span>
-                      </li>
-                    </ul>
-                  </div>
+                <div className="bg-white rounded-2xl p-6 shadow-md mb-6 flex-grow">
+                  <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
+                    Key Benefits
+                  </h4>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Industry-leading accuracy and precision</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Comprehensive support and documentation</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Proven results in production environments</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Scalable architecture for future growth</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Cost-effective implementation and maintenance</span>
+                    </li>
+                  </ul>
+                </div>
 
+                <div className="pt-6 border-t border-gray-200 mt-auto">
                   <a
                     href={`/pillar/${selectedPillar.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center text-xs font-bold uppercase tracking-widest ${selectedPillar.accentColor} hover:underline transition-all`}
+                    className={`inline-flex items-center justify-center w-full py-4 px-6 text-sm font-bold uppercase tracking-widest ${selectedPillar.accentColor} bg-white rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 ${selectedPillar.borderColor}`}
                   >
-                    Learn More <ArrowRight className="w-3 h-3 ml-2" />
+                    Learn More <ArrowRight className="w-4 h-4 ml-2" />
                   </a>
                 </div>
               </div>
@@ -219,7 +230,8 @@ export default function Pillars() {
 
         @media (min-width: 1024px) {
           .detail-panel {
-            max-height: calc(100vh - 12rem);
+            min-height: 800px;
+            max-height: calc(100vh - 8rem);
             overflow-y: auto;
           }
 
@@ -239,6 +251,12 @@ export default function Pillars() {
 
           .detail-panel::-webkit-scrollbar-thumb:hover {
             background: #8e30bc;
+          }
+        }
+
+        @media (max-width: 1023px) {
+          .detail-panel {
+            min-height: 500px;
           }
         }
 
