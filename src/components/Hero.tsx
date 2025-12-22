@@ -45,17 +45,17 @@ export default function Hero() {
 
         <div ref={heroRef} className="relative z-10 max-w-5xl text-center reveal-on-scroll">
           {/* Pill Badge (Salesforce Style) */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-50 border border-gray-200 mb-8 shadow-sm transition-transform hover:scale-105 cursor-default">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-gray-50 border border-gray-200 mb-6 sm:mb-8 shadow-sm transition-transform hover:scale-105 cursor-default">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-purple opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-purple"></span>
             </span>
-            <span className="text-xs font-semibold tracking-wide uppercase text-gray-600">Factory-as-a-Service</span>
+            <span className="text-[10px] sm:text-xs font-semibold tracking-wide uppercase text-gray-600">Factory-as-a-Service</span>
           </div>
 
           {/* Headline with Rotating Words Animation */}
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.2] mb-8 text-brand-black"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.2] mb-6 md:mb-8 text-brand-black px-4 sm:px-0"
             aria-label="Join the Flow Revolution, smart manufacturing means going with the flow."
           >
             Join the{' '}
@@ -77,16 +77,17 @@ export default function Hero() {
           </h1>
 
           {/* Subtext */}
-          <p className="text-xl text-gray-500 font-normal max-w-3xl mx-auto leading-relaxed mb-10">
-            We remove the fear of heavy upfront investment by letting you scale step-by-step from feasibility to full production.<br />
+          <p className="text-base sm:text-lg md:text-xl text-gray-500 font-normal max-w-3xl mx-auto leading-relaxed mb-8 md:mb-10 px-4 sm:px-0">
+            We remove the fear of heavy upfront investment by letting you scale step-by-step from feasibility to full production.{' '}
+            <span className="hidden sm:inline"><br /></span>
             Manufacture products at <span className="text-brand-black font-medium">40% below</span> current market costs.
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
             <button
               onClick={() => setShowCalModal(true)}
-              className="bg-brand-black text-white px-8 py-4 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 min-w-[180px]"
+              className="bg-brand-black text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto sm:min-w-[180px]"
             >
               Start Feasibility Audit
             </button>
@@ -97,7 +98,7 @@ export default function Hero() {
                   element.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="text-brand-black px-8 py-4 rounded-full text-sm font-medium hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all flex items-center gap-2 min-w-[180px] justify-center"
+              className="text-brand-black px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-medium hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all flex items-center gap-2 w-full sm:w-auto sm:min-w-[180px] justify-center"
             >
               Explore Platform <ArrowRight className="w-4 h-4 text-brand-purple" />
             </button>
@@ -115,7 +116,7 @@ export default function Hero() {
         .rotating-word-container {
           position: relative;
           display: inline-block;
-          min-width: 180px;
+          min-width: 140px;
           height: 1.2em;
           vertical-align: baseline;
         }
@@ -125,7 +126,7 @@ export default function Hero() {
           left: 0;
           top: 0;
           opacity: 0;
-          transform: translateY(30px) scale(0.9);
+          transform: translateY(20px) scale(0.95);
           transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
           white-space: nowrap;
           background: linear-gradient(to right, #e07742, #702594);
@@ -141,17 +142,23 @@ export default function Hero() {
 
         @media (min-width: 640px) {
           .rotating-word-container {
-            min-width: 220px;
+            min-width: 180px;
           }
         }
 
         @media (min-width: 768px) {
           .rotating-word-container {
-            min-width: 260px;
+            min-width: 220px;
           }
         }
 
         @media (min-width: 1024px) {
+          .rotating-word-container {
+            min-width: 260px;
+          }
+        }
+
+        @media (min-width: 1280px) {
           .rotating-word-container {
             min-width: 320px;
           }
