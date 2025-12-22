@@ -586,7 +586,13 @@ export default function CalculatorWizard() {
               </button>
             ) : (
               <button
-                onClick={() => setCurrentStep('basics')}
+                onClick={() => {
+                  setCurrentStep('basics');
+                  const element = document.querySelector('#calculator');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
                 className="flex items-center gap-2 px-8 py-4 rounded-2xl font-medium transition-all bg-gradient-purple text-white hover:opacity-90 shadow-lg shadow-brand-purple/30"
               >
                 <span>Start Over</span>

@@ -122,14 +122,17 @@ export function ROICharts({
   }
 
   return (
-    <div className="space-y-4">
-      <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg">
-        <h4 className="text-sm font-semibold text-white mb-4">Cost Comparison (Per Kg)</h4>
-        <ResponsiveContainer width="100%" height={250}>
+    <div className="space-y-6">
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700 shadow-2xl">
+        <h4 className="text-base font-bold text-white mb-6 flex items-center gap-2">
+          <div className="w-1 h-6 bg-gradient-to-b from-brand-purple to-brand-blue rounded-full"></div>
+          Cost Comparison (Per Kg)
+        </h4>
+        <ResponsiveContainer width="100%" height={280}>
           <BarChart data={costComparisonData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis dataKey="name" stroke="#9ca3af" tick={{ fontSize: 11, fill: '#9ca3af' }} />
-            <YAxis stroke="#9ca3af" tick={{ fontSize: 11, fill: '#9ca3af' }} />
+            <XAxis dataKey="name" stroke="#9ca3af" tick={{ fontSize: 12, fill: '#9ca3af' }} />
+            <YAxis stroke="#9ca3af" tick={{ fontSize: 12, fill: '#9ca3af' }} />
             <Tooltip
               formatter={(value) => [`${currencySymbol} ${value}`, 'Cost']}
               labelStyle={tooltipLabelStyle}
@@ -137,15 +140,24 @@ export function ROICharts({
               contentStyle={tooltipStyle}
               cursor={{ fill: 'rgba(224, 119, 66, 0.1)' }}
             />
-            <Bar dataKey="cost" fill={COLORS.flownetics} radius={[8, 8, 0, 0]} />
+            <Bar dataKey="cost" fill="url(#barGradient)" radius={[12, 12, 0, 0]} />
+            <defs>
+              <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={COLORS.flownetics} stopOpacity={1} />
+                <stop offset="100%" stopColor={COLORS.flownetics} stopOpacity={0.7} />
+              </linearGradient>
+            </defs>
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg">
-          <h4 className="text-sm font-semibold text-white mb-4">Investment Breakdown</h4>
-          <ResponsiveContainer width="100%" height={250}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700 shadow-2xl">
+          <h4 className="text-base font-bold text-white mb-6 flex items-center gap-2">
+            <div className="w-1 h-6 bg-gradient-to-b from-brand-orange to-brand-purple rounded-full"></div>
+            Investment Breakdown
+          </h4>
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie
                 data={investmentBreakdownData}
@@ -153,7 +165,7 @@ export function ROICharts({
                 cy="50%"
                 labelLine={false}
                 label={renderCustomLabel}
-                outerRadius={70}
+                outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -167,14 +179,25 @@ export function ROICharts({
                 itemStyle={tooltipItemStyle}
                 contentStyle={tooltipStyle}
               />
-              <Legend wrapperStyle={{ fontSize: '11px', color: '#9ca3af' }} />
+              <Legend
+                verticalAlign="bottom"
+                height={36}
+                wrapperStyle={{
+                  fontSize: '12px',
+                  color: '#9ca3af',
+                  paddingTop: '10px'
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg">
-          <h4 className="text-sm font-semibold text-white mb-4">Annual Savings Split</h4>
-          <ResponsiveContainer width="100%" height={250}>
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700 shadow-2xl">
+          <h4 className="text-base font-bold text-white mb-6 flex items-center gap-2">
+            <div className="w-1 h-6 bg-gradient-to-b from-brand-green to-brand-purple rounded-full"></div>
+            Annual Savings Split
+          </h4>
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie
                 data={savingsBreakdownData}
@@ -182,7 +205,7 @@ export function ROICharts({
                 cy="50%"
                 labelLine={false}
                 label={renderCustomLabel}
-                outerRadius={70}
+                outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -196,53 +219,77 @@ export function ROICharts({
                 itemStyle={tooltipItemStyle}
                 contentStyle={tooltipStyle}
               />
-              <Legend wrapperStyle={{ fontSize: '11px', color: '#9ca3af' }} />
+              <Legend
+                verticalAlign="bottom"
+                height={36}
+                wrapperStyle={{
+                  fontSize: '12px',
+                  color: '#9ca3af',
+                  paddingTop: '10px'
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {roiTimelineData.length > 0 && (
-        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg">
-          <h4 className="text-sm font-semibold text-white mb-4">ROI Timeline - Cumulative Savings</h4>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={roiTimelineData}>
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700 shadow-2xl">
+          <h4 className="text-base font-bold text-white mb-6 flex items-center gap-2">
+            <div className="w-1 h-6 bg-gradient-to-b from-brand-green to-brand-orange rounded-full"></div>
+            ROI Timeline - Cumulative Savings
+          </h4>
+          <ResponsiveContainer width="100%" height={280}>
+            <LineChart data={roiTimelineData} margin={{ top: 10, right: 10, bottom: 30, left: 10 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
               <XAxis
                 dataKey="month"
                 stroke="#9ca3af"
-                tick={{ fontSize: 11, fill: '#9ca3af' }}
-                label={{ value: 'Months', position: 'insideBottom', offset: -5, fontSize: 11, fill: '#9ca3af' }}
+                tick={{ fontSize: 12, fill: '#9ca3af' }}
+                label={{ value: 'Months', position: 'insideBottom', offset: -10, fontSize: 12, fill: '#9ca3af' }}
               />
-              <YAxis stroke="#9ca3af" tick={{ fontSize: 11, fill: '#9ca3af' }} />
+              <YAxis stroke="#9ca3af" tick={{ fontSize: 12, fill: '#9ca3af' }} />
               <Tooltip
                 formatter={(value, name) => [`${currencySymbol} ${value}`, name]}
                 labelStyle={tooltipLabelStyle}
                 itemStyle={tooltipItemStyle}
                 contentStyle={tooltipStyle}
               />
-              <Legend wrapperStyle={{ fontSize: '11px', color: '#9ca3af' }} />
+              <Legend
+                verticalAlign="bottom"
+                height={36}
+                wrapperStyle={{
+                  fontSize: '12px',
+                  color: '#9ca3af',
+                  paddingTop: '20px'
+                }}
+              />
               <Line
                 type="monotone"
                 dataKey="savings"
                 stroke={COLORS.savings}
-                strokeWidth={2}
+                strokeWidth={3}
                 name="Cumulative Savings"
-                dot={{ fill: COLORS.savings, r: 3 }}
+                dot={{ fill: COLORS.savings, r: 4 }}
               />
               <Line
                 type="monotone"
                 dataKey="breakeven"
                 stroke={COLORS.investment}
-                strokeWidth={2}
+                strokeWidth={3}
                 strokeDasharray="5 5"
                 name="Breakeven Point"
                 dot={false}
               />
             </LineChart>
           </ResponsiveContainer>
-          <div className="mt-3 text-center text-xs text-gray-400">
-            Breakeven achieved at month <span className="font-bold text-brand-green">{roiMonths.toFixed(1)}</span>
+          <div className="mt-6 p-4 bg-gradient-to-r from-brand-green/20 to-brand-green/10 border-2 border-brand-green rounded-xl">
+            <div className="text-center">
+              <div className="text-xs font-semibold uppercase tracking-widest text-brand-green mb-1">Breakeven Achieved</div>
+              <div className="text-2xl font-black text-brand-green">
+                Month {roiMonths.toFixed(1)}
+              </div>
+            </div>
           </div>
         </div>
       )}
