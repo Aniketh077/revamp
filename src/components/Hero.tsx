@@ -6,28 +6,9 @@ import CalBookingModal from './CalBookingModal';
 export default function Hero() {
   const [showCalModal, setShowCalModal] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const flowTextRef = useRef<HTMLSpanElement>(null);
   const heroRef = useScrollReveal<HTMLDivElement>();
 
-  const rotatingWords = ['Revolution', 'Transformation', 'Innovation', 'Evolution'];
-
-  useEffect(() => {
-    // Flow text animation
-    if (flowTextRef.current) {
-      const phrase = "by going with the flow.";
-      let charCount = 0;
-
-      const wrappedHtml = phrase.split(' ').map(word => {
-        const letters = word.split('').map(char => {
-          return `<span class="char" style="--char-index: ${charCount++}">${char}</span>`;
-        }).join('');
-        return `<span class="word">${letters}</span>`;
-      }).join('');
-
-      flowTextRef.current.innerHTML = wrappedHtml;
-      flowTextRef.current.classList.remove('opacity-0');
-    }
-  }, []);
+  const rotatingWords = ['Manufacturing', 'Production', 'Scale-up'];
 
   useEffect(() => {
     // Rotating words animation
@@ -72,33 +53,33 @@ export default function Hero() {
             <span className="text-xs font-semibold tracking-wide uppercase text-gray-600">Factory-as-a-Service</span>
           </div>
 
-          {/* Headline with Flow Animation */}
+          {/* Headline with Rotating Words Animation */}
           <h1
-            className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.1] mb-8 text-brand-black"
-            aria-label="Join the Flow Revolution by going with the flow."
+            className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.15] mb-8 text-brand-black"
+            aria-label="Join the Flow Revolution, smart manufacturing means going with the flow."
           >
-            Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green inline-block">
-              <span className="inline-block relative">
-                Flow{' '}
-                <span className="rotating-word-container inline-block relative">
-                  {rotatingWords.map((word, index) => (
-                    <span
-                      key={word}
-                      className={`rotating-word ${index === currentWordIndex ? 'active' : ''}`}
-                    >
-                      {word}
-                    </span>
-                  ))}
-                </span>
+            <span className="block mb-2">
+              Join the{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
+                Flow Revolution
               </span>
             </span>
-            <br />
-            <span
-              ref={flowTextRef}
-              id="flow-text"
-              className="text-brand-black inline-block opacity-0"
-            >
-              by going with the flow.
+            <span className="block">
+              Smart{' '}
+              <span className="rotating-word-container">
+                {rotatingWords.map((word, index) => (
+                  <span
+                    key={word}
+                    className={`rotating-word ${index === currentWordIndex ? 'active' : ''}`}
+                  >
+                    {word}
+                  </span>
+                ))}
+              </span>
+              {' '}means
+            </span>
+            <span className="block">
+              going with the flow.
             </span>
           </h1>
 
@@ -138,38 +119,11 @@ export default function Hero() {
       />
 
       <style>{`
-        .word {
-          display: inline-block;
-          white-space: nowrap;
-          margin-right: 0.25em;
-          vertical-align: top;
-        }
-
-        .char {
-          display: inline-block;
-          opacity: 0;
-          animation: flowReveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-          animation-delay: calc(var(--char-index) * 0.04s);
-          will-change: transform, opacity, filter;
-        }
-
-        @keyframes flowReveal {
-          0% {
-            opacity: 0;
-            transform: translateX(-15px) scaleX(0.9);
-            filter: blur(4px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0) scaleX(1);
-            filter: blur(0);
-          }
-        }
-
         .rotating-word-container {
-          min-width: 300px;
+          min-width: 320px;
           height: 1.2em;
-          vertical-align: top;
+          vertical-align: middle;
+          display: inline-block;
         }
 
         .rotating-word {
@@ -177,20 +131,23 @@ export default function Hero() {
           left: 0;
           top: 0;
           opacity: 0;
-          transform: translateY(20px) rotateX(-90deg);
-          transform-origin: center bottom;
-          transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          transform: translateY(30px) scale(0.9);
+          transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
           white-space: nowrap;
+          background: linear-gradient(to right, #e07742, #702594);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         .rotating-word.active {
           opacity: 1;
-          transform: translateY(0) rotateX(0deg);
+          transform: translateY(0) scale(1);
         }
 
         @media (max-width: 768px) {
           .rotating-word-container {
-            min-width: 200px;
+            min-width: 220px;
           }
         }
       `}</style>
