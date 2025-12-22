@@ -150,31 +150,34 @@ export default function Calculator() {
         </div>
 
         {(roiMonths > 0 || savingsAfterFaasINR > 0) && (
-          <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="bg-gradient-to-br from-brand-green to-green-700 rounded-xl p-4 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+          <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gradient-to-br from-brand-green via-green-600 to-green-700 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
               <div className="relative z-10">
-                <div className="text-[10px] font-semibold uppercase tracking-widest mb-1 text-white/80">ROI Period</div>
-                <div className="text-2xl font-bold mb-0.5">{roiMonths > 0 ? roiMonths.toFixed(1) : '--'}</div>
-                <div className="text-xs text-white/90">Months</div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-2 text-white/90">ROI Period</div>
+                <div className="text-4xl font-black mb-1">{roiMonths > 0 ? roiMonths.toFixed(1) : '--'}</div>
+                <div className="text-sm font-medium text-white/90">Months to Break Even</div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-brand-purple to-purple-700 rounded-xl p-4 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+            <div className="bg-gradient-to-br from-brand-purple via-purple-600 to-purple-700 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
               <div className="relative z-10">
-                <div className="text-[10px] font-semibold uppercase tracking-widest mb-1 text-white/80">Annual Savings</div>
-                <div className="text-xl font-bold mb-0.5 truncate">{formatMoney(savingsAfterFaasINR)}</div>
-                <div className="text-xs text-white/90">After FaaS Fees</div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-2 text-white/90">Annual Savings</div>
+                <div className="text-3xl font-black mb-1 truncate">{formatMoney(savingsAfterFaasINR)}</div>
+                <div className="text-sm font-medium text-white/90">After FaaS Fees</div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-brand-orange to-orange-700 rounded-xl p-4 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+            <div className="bg-gradient-to-br from-brand-orange via-orange-600 to-orange-700 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 hover:scale-[1.02] group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
               <div className="relative z-10">
-                <div className="text-[10px] font-semibold uppercase tracking-widest mb-1 text-white/80">Total Investment</div>
-                <div className="text-xl font-bold mb-0.5 truncate">{formatMoney(totalCostClientINR)}</div>
-                <div className="text-xs text-white/90">Client Cost</div>
+                <div className="text-xs font-bold uppercase tracking-widest mb-2 text-white/90">Total Investment</div>
+                <div className="text-3xl font-black mb-1 truncate">{formatMoney(totalCostClientINR)}</div>
+                <div className="text-sm font-medium text-white/90">Client Cost</div>
               </div>
             </div>
           </div>
@@ -375,18 +378,20 @@ export default function Calculator() {
 
 function ResultField({ label, value, highlight = false }: { label: string; value: string; highlight?: boolean }) {
   return (
-    <div>
-      <label className="block text-[10px] font-medium uppercase tracking-wide mb-1 text-gray-400">{label}</label>
-      <input
-        type="text"
-        value={value}
-        readOnly
-        className={`w-full border rounded-lg p-2 text-xs font-semibold truncate ${
-          highlight
-            ? 'bg-brand-green/20 text-brand-green border-brand-green'
-            : 'bg-gray-900 text-gray-300 border-gray-800'
-        }`}
-      />
+    <div className="group">
+      <label className="block text-[10px] font-semibold uppercase tracking-widest mb-2 text-gray-300">{label}</label>
+      <div className={`relative rounded-xl p-4 transition-all duration-300 ${
+        highlight
+          ? 'bg-gradient-to-r from-brand-green/20 to-brand-green/10 border-2 border-brand-green shadow-lg shadow-brand-green/20 group-hover:shadow-xl group-hover:shadow-brand-green/30'
+          : 'bg-gray-800/50 border border-gray-700 group-hover:border-brand-purple/50 group-hover:shadow-lg'
+      }`}>
+        {highlight && <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full blur-xl"></div>}
+        <div className={`text-lg font-bold truncate relative z-10 ${
+          highlight ? 'text-brand-green' : 'text-white'
+        }`}>
+          {value || '—'}
+        </div>
+      </div>
     </div>
   );
 }

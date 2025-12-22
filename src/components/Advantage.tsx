@@ -1,4 +1,3 @@
-import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const steps = [
@@ -53,20 +52,10 @@ export default function Advantage() {
             We've removed the barriers. From analysis to full-scale production in three rapid sprints.
           </p>
         </div>
-        <div className="w-full lg:w-2/3 grid gap-4 sm:gap-6 relative">
+        <div className="w-full lg:w-2/3 grid gap-4 sm:gap-6">
           {steps.map((step, index) => (
             <StepCard key={index} {...step} index={index} />
           ))}
-          <svg className="absolute left-4 sm:left-8 top-0 h-full w-0.5 hidden sm:block" style={{ zIndex: 0 }}>
-            <line x1="0" y1="0" x2="0" y2="100%" stroke="url(#gradient)" strokeWidth="2" strokeDasharray="8,4" />
-            <defs>
-              <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#702594" />
-                <stop offset="50%" stopColor="#1406b3" />
-                <stop offset="100%" stopColor="#057210" />
-              </linearGradient>
-            </defs>
-          </svg>
         </div>
       </div>
     </section>
@@ -88,35 +77,42 @@ function StepCard({ number, label, title, description, color, labelColor, delay,
   return (
     <div
       ref={ref}
-      className="bg-gradient-to-br from-brand-light to-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl reveal-on-scroll border-l-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] relative z-10 group cursor-pointer"
+      className="bg-gradient-to-br from-white via-brand-light to-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl reveal-on-scroll border-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden group cursor-pointer"
       style={{
         transitionDelay: delay,
-        borderLeftColor: color
+        borderColor: color
       }}
     >
-      <div
-        className="absolute -left-6 sm:-left-12 top-8 sm:top-12 w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm shadow-lg group-hover:scale-110 transition-transform duration-300"
+      <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"
         style={{ backgroundColor: color }}
-      >
-        {index + 1}
-      </div>
+      ></div>
 
-      <div className="flex items-start justify-between gap-4 mb-4">
-        <span className={`${labelColor} text-xs font-bold uppercase tracking-widest`}>
-          {number} {label}
-        </span>
-        <ArrowRight
-          className={`${labelColor} w-5 h-5 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-300`}
-        />
-      </div>
+      <div className="relative z-10">
+        <div className="flex items-center gap-3 mb-4">
+          <div
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-white font-black text-lg sm:text-xl shadow-lg group-hover:scale-110 transition-transform duration-300"
+            style={{ background: `linear-gradient(135deg, ${color}, ${color}dd)` }}
+          >
+            {index + 1}
+          </div>
+          <div>
+            <span className={`${labelColor} text-xs font-bold uppercase tracking-widest block mb-1`}>
+              {number}
+            </span>
+            <span className={`${labelColor} text-sm font-semibold uppercase tracking-wide`}>
+              {label}
+            </span>
+          </div>
+        </div>
 
-      <h3 className="text-xl sm:text-2xl font-semibold mb-2 group-hover:text-brand-purple transition-colors duration-300">
-        {title}
-      </h3>
-      <p className="text-brand-gray text-sm sm:text-base leading-relaxed">{description}</p>
+        <h3 className="text-xl sm:text-2xl font-bold mb-3 text-brand-black group-hover:scale-[1.02] transition-transform duration-300">
+          {title}
+        </h3>
+        <p className="text-brand-gray text-sm sm:text-base leading-relaxed">{description}</p>
+      </div>
 
       <div
-        className="absolute bottom-0 left-0 w-full h-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-b-3xl"
+        className="absolute bottom-0 left-0 w-full h-1.5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-b-3xl"
         style={{ backgroundColor: color }}
       ></div>
     </div>

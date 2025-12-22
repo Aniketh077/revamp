@@ -19,62 +19,74 @@ export function ROIDashboard({
     : '0';
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-      <div className="bg-gradient-to-br from-brand-green to-green-800 rounded-xl p-3 text-white relative overflow-hidden shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] group">
-        <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="bg-gradient-to-br from-brand-green via-green-600 to-green-800 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-green-500/50 transition-all hover:scale-[1.05] group cursor-pointer">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
         <div className="relative z-10">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <Calendar className="w-3 h-3 opacity-90" />
-            <div className="text-[9px] font-bold uppercase tracking-widest opacity-90">ROI Period</div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <Calendar className="w-5 h-5" />
+            </div>
+            <div className="text-xs font-bold uppercase tracking-widest">ROI Period</div>
           </div>
-          <div className="text-2xl font-bold mb-0.5 leading-tight">
+          <div className="text-4xl font-black mb-1 leading-tight">
             {roiMonths > 0 ? roiMonths.toFixed(1) : '--'}
           </div>
-          <div className="text-[10px] opacity-90 truncate">
+          <div className="text-sm font-medium opacity-90">
             {roiYears > 0 ? `${roiYears.toFixed(1)} years` : 'Months'}
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-brand-purple to-purple-800 rounded-xl p-3 text-white relative overflow-hidden shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] group">
-        <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+      <div className="bg-gradient-to-br from-brand-purple via-purple-600 to-purple-800 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-purple-500/50 transition-all hover:scale-[1.05] group cursor-pointer">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
         <div className="relative z-10">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <TrendingUp className="w-3 h-3 opacity-90" />
-            <div className="text-[9px] font-bold uppercase tracking-widest opacity-90">Annual Savings</div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <TrendingUp className="w-5 h-5" />
+            </div>
+            <div className="text-xs font-bold uppercase tracking-widest">Annual Savings</div>
           </div>
-          <div className="text-xl font-bold mb-0.5 truncate leading-tight">
+          <div className="text-3xl font-black mb-1 truncate leading-tight">
             {formatMoney(savingsAfterFaasINR)}
           </div>
-          <div className="text-[10px] opacity-90 truncate">After FaaS Fees</div>
+          <div className="text-sm font-medium opacity-90">After FaaS Fees</div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-brand-orange to-orange-800 rounded-xl p-3 text-white relative overflow-hidden shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] group">
-        <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+      <div className="bg-gradient-to-br from-brand-orange via-orange-600 to-orange-800 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-orange-500/50 transition-all hover:scale-[1.05] group cursor-pointer">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
         <div className="relative z-10">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <DollarSign className="w-3 h-3 opacity-90" />
-            <div className="text-[9px] font-bold uppercase tracking-widest opacity-90">Total Investment</div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <DollarSign className="w-5 h-5" />
+            </div>
+            <div className="text-xs font-bold uppercase tracking-widest">Investment</div>
           </div>
-          <div className="text-xl font-bold mb-0.5 truncate leading-tight">
+          <div className="text-3xl font-black mb-1 truncate leading-tight">
             {formatMoney(totalCostClientINR)}
           </div>
-          <div className="text-[10px] opacity-90 truncate">Client Cost</div>
+          <div className="text-sm font-medium opacity-90">Client Cost</div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-brand-blue to-blue-800 rounded-xl p-3 text-white relative overflow-hidden shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] group">
-        <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+      <div className="bg-gradient-to-br from-brand-blue via-blue-600 to-blue-800 rounded-2xl p-6 text-white relative overflow-hidden shadow-2xl hover:shadow-blue-500/50 transition-all hover:scale-[1.05] group cursor-pointer">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full blur-2xl"></div>
         <div className="relative z-10">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <Target className="w-3 h-3 opacity-90" />
-            <div className="text-[9px] font-bold uppercase tracking-widest opacity-90">Annual ROI</div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <Target className="w-5 h-5" />
+            </div>
+            <div className="text-xs font-bold uppercase tracking-widest">Annual ROI</div>
           </div>
-          <div className="text-2xl font-bold mb-0.5 leading-tight">
+          <div className="text-4xl font-black mb-1 leading-tight">
             {roiPercentage}%
           </div>
-          <div className="text-[10px] opacity-90 truncate">Return Rate</div>
+          <div className="text-sm font-medium opacity-90">Return Rate</div>
         </div>
       </div>
     </div>
