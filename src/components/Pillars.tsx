@@ -148,63 +148,62 @@ export default function Pillars() {
                 }`}
                 style={{ minHeight: '800px' }}
               >
-                <div className="flex justify-between items-start mb-6">
+                <div className="flex justify-between items-start mb-4">
                   <span className={`text-sm font-bold uppercase ${selectedPillar.accentColor}`}>
                     {selectedPillar.number}
                   </span>
-                  <div className={`w-12 h-12 rounded-full ${selectedPillar.accentColor.replace('text-', 'bg-')} opacity-10`}></div>
                 </div>
 
-                <h3 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight">{selectedPillar.title}</h3>
-                <p className="text-gray-600 mb-8 text-base sm:text-lg leading-relaxed">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-3 leading-tight">{selectedPillar.title}</h3>
+                <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">
                   {selectedPillar.description}
                 </p>
 
-                <div className="border-t border-gray-200 pt-6 mb-6">
-                  <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
+                <div className="border-t border-gray-200 pt-4 mb-4">
+                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
                     Technical Details
                   </h4>
-                  <p className="text-gray-700 leading-relaxed mb-6 text-base sm:text-lg">
+                  <p className="text-gray-700 leading-relaxed mb-4 text-sm sm:text-base">
                     {selectedPillar.detailedDescription}
                   </p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-6 shadow-md mb-6 flex-grow">
-                  <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
+                <div className="bg-white rounded-xl p-4 shadow-sm mb-4 flex-grow">
+                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
                     Key Benefits
                   </h4>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
-                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Industry-leading accuracy and precision</span>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-2">
+                      <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-xs sm:text-sm leading-relaxed">Industry-leading accuracy and precision</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
-                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Comprehensive support and documentation</span>
+                    <li className="flex items-start gap-2">
+                      <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-xs sm:text-sm leading-relaxed">Comprehensive support and documentation</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
-                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Proven results in production environments</span>
+                    <li className="flex items-start gap-2">
+                      <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-xs sm:text-sm leading-relaxed">Proven results in production environments</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
-                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Scalable architecture for future growth</span>
+                    <li className="flex items-start gap-2">
+                      <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-xs sm:text-sm leading-relaxed">Scalable architecture for future growth</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <div className={`w-2 h-2 rounded-full ${selectedPillar.accentColor} mt-2 flex-shrink-0`}></div>
-                      <span className="text-gray-700 text-sm sm:text-base leading-relaxed">Cost-effective implementation and maintenance</span>
+                    <li className="flex items-start gap-2">
+                      <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5 flex-shrink-0`}></div>
+                      <span className="text-gray-700 text-xs sm:text-sm leading-relaxed">Cost-effective implementation and maintenance</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="pt-6 border-t border-gray-200 mt-auto">
+                <div className="pt-4 border-t border-gray-200 mt-auto">
                   <a
                     href={`/pillar/${selectedPillar.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center justify-center w-full py-4 px-6 text-sm font-bold uppercase tracking-widest ${selectedPillar.accentColor} bg-white rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 ${selectedPillar.borderColor}`}
+                    className={`inline-flex items-center text-xs font-bold uppercase tracking-widest ${selectedPillar.accentColor} hover:underline transition-all`}
                   >
-                    Learn More <ArrowRight className="w-4 h-4 ml-2" />
+                    Learn More <ArrowRight className="w-3 h-3 ml-2" />
                   </a>
                 </div>
               </div>
