@@ -6,7 +6,7 @@ export default function Hero() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const heroRef = useScrollReveal<HTMLDivElement>();
 
-  const rotatingWords = ['Manufacturing', 'Production', 'Scale-up'];
+  const rotatingWords = ['Chemistry', 'Manufacturing', 'Production', 'Scale-up'];
 
   useEffect(() => {
     // Rotating words animation
@@ -54,17 +54,18 @@ export default function Hero() {
           {/* Headline with Rotating Words Animation */}
           <h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.3] mb-6 md:mb-8 text-brand-black px-4 sm:px-0"
-            aria-label="Join the Flow Revolution, smart manufacturing means going with the flow."
+            aria-label="Join the Flow Revolution, smart chemistry means going with the flow."
           >
             <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
-              Join the Flow
+              Join the{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
+                Flow Revolution
+              </span>
+              ,
             </span>
             <br />
             <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
-                Revolution
-              </span>
-              , smart{' '}
+              Smart{' '}
             </span>
             <span className="rotating-word-container inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
               {rotatingWords.map((word, index) => (
@@ -73,12 +74,19 @@ export default function Hero() {
                   className={`rotating-word ${index === currentWordIndex ? 'active' : ''}`}
                 >
                   {word}
+                  <svg className="chemical-bond-underline" viewBox="0 0 100 15" preserveAspectRatio="none">
+                    <path vectorEffect="non-scaling-stroke" d="M0 10 L10 2 L20 10 L30 2 L40 10 L50 2 L60 10 L70 2 L80 10 L90 2 L100 10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </span>
               ))}
             </span>
             <br />
-            <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
-              means going with the flow.
+            <span className="flow-text inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
+              {'means going with the flow.'.split('').map((char, i) => (
+                <span key={i} className="flow-char" style={{ '--char-index': i } as React.CSSProperties}>
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))}
             </span>
           </h1>
 
@@ -122,7 +130,7 @@ export default function Hero() {
           position: relative;
           display: inline-block;
           min-width: 140px;
-          height: 1.2em;
+          height: 1.5em;
           vertical-align: baseline;
         }
 
@@ -134,15 +142,47 @@ export default function Hero() {
           transform: translateY(20px) scale(0.95);
           transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
           white-space: nowrap;
-          background: linear-gradient(to right, #e07742, #702594);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: #702594;
         }
 
         .rotating-word.active {
           opacity: 1;
           transform: translateY(0) scale(1);
+        }
+
+        .chemical-bond-underline {
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          width: 100%;
+          height: 16px;
+          color: rgba(112, 37, 148, 0.5);
+          pointer-events: none;
+        }
+
+        .flow-text {
+          white-space: nowrap;
+        }
+
+        .flow-char {
+          display: inline-block;
+          opacity: 0;
+          animation: flowReveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+          animation-delay: calc(var(--char-index) * 0.04s + 0.7s);
+          will-change: transform, opacity, filter;
+        }
+
+        @keyframes flowReveal {
+          0% {
+            opacity: 0;
+            transform: translateX(-15px) scaleX(0.9);
+            filter: blur(4px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0) scaleX(1);
+            filter: blur(0);
+          }
         }
 
         @media (min-width: 640px) {

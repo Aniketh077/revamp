@@ -108,12 +108,12 @@ export function ROICharts({
   ];
 
   const roiTimelineData = [];
-  if (roiMonths > 0 && savingsAfterFaasINR > 0) {
-    const monthsToShow = Math.ceil(roiMonths) + 12;
+  if (savingsAfterFaasINR > 0) {
+    const monthsToShow = 60;
     const monthlySavings = savingsAfterFaasINR / 12;
     let cumulativeSavings = 0;
 
-    for (let month = 0; month <= monthsToShow; month += 3) {
+    for (let month = 0; month <= monthsToShow; month += 6) {
       cumulativeSavings = monthlySavings * month;
       roiTimelineData.push({
         month: month,
