@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 export const pillars = [
@@ -61,42 +61,16 @@ export const pillars = [
 export default function Pillars() {
   const [activePillar, setActivePillar] = useState<number | null>(1);
   const [isAnimating, setIsAnimating] = useState(false);
-  const pillarRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-45% 0px -45% 0px',
-      threshold: 0,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const pillarId = parseInt(entry.target.getAttribute('data-pillar-id') || '1');
-          if (pillarId !== activePillar) {
-            setIsAnimating(true);
-            setTimeout(() => {
-              setActivePillar(pillarId);
-              setTimeout(() => setIsAnimating(false), 400);
-            }, 300);
-          }
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    pillarRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
-      pillarRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
-      });
-    };
-  }, [activePillar]);
+  const handlePillarClick = (pillarId: number) => {
+    if (pillarId !== activePillar && !isAnimating) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setActivePillar(pillarId);
+        setTimeout(() => setIsAnimating(false), 400);
+      }, 300);
+    }
+  };
 
   const selectedPillar = pillars.find((p) => p.id === activePillar);
 
@@ -115,20 +89,19 @@ export default function Pillars() {
               </h2>
             </div>
           </div>
-          <p className="text-brand-gray text-base sm:text-lg">Scroll to explore each pillar.</p>
+          <p className="text-brand-gray text-base sm:text-lg">Click to explore each pillar.</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
-          <div className="pillars-scroll-container h-[calc(100vh-12rem)] overflow-y-scroll snap-y snap-mandatory py-[calc(50vh-8rem)]">
-            {pillars.map((pillar, index) => {
+          <div className="space-y-3 sm:space-y-4">
+            {pillars.map((pillar) => {
               const isActive = activePillar === pillar.id;
 
               return (
                 <div
                   key={pillar.id}
-                  ref={(el) => (pillarRefs.current[index] = el)}
-                  data-pillar-id={pillar.id}
-                  className={`pillar-card p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-gray-50 to-white border transition-all duration-500 group relative overflow-hidden snap-center mb-6 ${
+                  onClick={() => handlePillarClick(pillar.id)}
+                  className={`pillar-card p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-gray-50 to-white border transition-all duration-500 cursor-pointer hover:shadow-lg group relative overflow-hidden ${
                     isActive
                       ? 'border-brand-purple shadow-xl scale-[1.02]'
                       : 'border-gray-100 shadow-sm hover:border-gray-200'
@@ -144,13 +117,13 @@ export default function Pillars() {
                       className={`w-4 h-4 transition-all duration-500 ${
                         isActive
                           ? 'text-brand-purple translate-x-0 opacity-100'
-                          : 'text-gray-400 -translate-x-2 opacity-0'
+                          : 'text-gray-400 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
                       }`}
                     />
                   </div>
 
                   <h3 className={`text-base sm:text-lg font-semibold mb-1.5 transition-colors duration-300 ${
-                    isActive ? 'text-brand-purple' : 'text-brand-black'
+                    isActive ? 'text-brand-purple' : 'text-brand-black group-hover:text-brand-purple'
                   }`}>
                     {pillar.title}
                   </h3>
@@ -158,7 +131,7 @@ export default function Pillars() {
 
                   <div
                     className={`absolute bottom-0 left-0 w-full h-1 transition-all duration-500 origin-left ${
-                      isActive ? 'scale-x-100' : 'scale-x-0'
+                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50'
                     }`}
                     style={{ backgroundColor: isActive ? '#702594' : '#e0e0e0' }}
                   ></div>
@@ -173,7 +146,7 @@ export default function Pillars() {
                 className={`detail-panel bg-gradient-to-br from-gray-50 to-white border-2 border-brand-purple rounded-3xl p-8 sm:p-10 shadow-2xl cursor-purple transition-all duration-300 flex flex-col ${
                   isAnimating ? 'slide-out' : 'slide-in'
                 }`}
-                style={{ height: 'calc(4 * (5rem + 1.5rem))' }}
+                style={{ minHeight: '800px' }}
               >
                 <div className="flex justify-between items-start mb-4">
                   <span className={`text-sm font-bold uppercase ${selectedPillar.accentColor}`}>
@@ -244,68 +217,44 @@ export default function Pillars() {
           transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .pillars-scroll-container {
-          scrollbar-width: thin;
-          scrollbar-color: #702594 #f1f1f1;
-          scroll-behavior: smooth;
-        }
-
-        .pillars-scroll-container::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        .pillars-scroll-container::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 10px;
-        }
-
-        .pillars-scroll-container::-webkit-scrollbar-thumb {
-          background: #702594;
-          border-radius: 10px;
-        }
-
-        .pillars-scroll-container::-webkit-scrollbar-thumb:hover {
-          background: #8e30bc;
+        .pillar-card:hover {
+          transform: translateX(4px);
         }
 
         .detail-panel {
           will-change: transform, opacity;
           position: sticky;
           top: 6rem;
-          overflow-y: auto;
         }
 
-        .detail-panel::-webkit-scrollbar {
-          width: 6px;
-        }
+        @media (min-width: 1024px) {
+          .detail-panel {
+            min-height: 800px;
+            max-height: calc(100vh - 8rem);
+            overflow-y: auto;
+          }
 
-        .detail-panel::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 10px;
-        }
+          .detail-panel::-webkit-scrollbar {
+            width: 6px;
+          }
 
-        .detail-panel::-webkit-scrollbar-thumb {
-          background: #702594;
-          border-radius: 10px;
-        }
+          .detail-panel::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+          }
 
-        .detail-panel::-webkit-scrollbar-thumb:hover {
-          background: #8e30bc;
+          .detail-panel::-webkit-scrollbar-thumb {
+            background: #702594;
+            border-radius: 10px;
+          }
+
+          .detail-panel::-webkit-scrollbar-thumb:hover {
+            background: #8e30bc;
+          }
         }
 
         @media (max-width: 1023px) {
-          .pillars-scroll-container {
-            height: auto !important;
-            overflow-y: visible !important;
-            padding: 0 !important;
-          }
-
-          .pillar-card {
-            scroll-snap-align: none !important;
-          }
-
           .detail-panel {
-            height: auto !important;
             min-height: 500px;
           }
         }
