@@ -62,11 +62,13 @@ const renderCustomLabel = ({ percent, cx, cy, midAngle, innerRadius, outerRadius
 };
 
 const COLORS = {
-  traditional: '#e07742',
-  flownetics: '#1406b3',
-  savings: '#057210',
-  fees: '#702594',
-  investment: '#e07742'
+  traditional: '#f9c9a7',
+  flownetics: '#9d92e5',
+  savings: '#8dd99e',
+  fees: '#c49de3',
+  investment: '#f4a582',
+  accent1: '#7b6fd9',
+  accent2: '#6ec97a'
 };
 
 export function ROICharts({
