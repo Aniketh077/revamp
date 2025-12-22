@@ -53,15 +53,20 @@ export default function Hero() {
 
           {/* Headline with Rotating Words Animation */}
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.2] mb-6 md:mb-8 text-brand-black px-4 sm:px-0"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.3] mb-6 md:mb-8 text-brand-black px-4 sm:px-0"
             aria-label="Join the Flow Revolution, smart manufacturing means going with the flow."
           >
-            Join the{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
-              Flow Revolution
+            <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
+              Join the Flow
             </span>
-            , smart{' '}
-            <span className="rotating-word-container">
+            <br />
+            <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
+                Revolution
+              </span>
+              , smart{' '}
+            </span>
+            <span className="rotating-word-container inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
               {rotatingWords.map((word, index) => (
                 <span
                   key={word}
@@ -71,7 +76,10 @@ export default function Hero() {
                 </span>
               ))}
             </span>
-            {' '}means going with the flow.
+            <br />
+            <span className="inline-block animate-slideInUp opacity-0" style={{ animationDelay: '0.7s', animationFillMode: 'forwards' }}>
+              means going with the flow.
+            </span>
           </h1>
 
           {/* Subtext */}
@@ -90,7 +98,7 @@ export default function Hero() {
                   element.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="bg-brand-black text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto sm:min-w-[180px]"
+              className="bg-gradient-to-r from-brand-purple to-brand-green text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-semibold hover:shadow-2xl hover:shadow-brand-purple/50 transition-all shadow-lg hover:-translate-y-0.5 w-full sm:w-auto sm:min-w-[180px]"
             >
               Start Feasibility Audit
             </button>
