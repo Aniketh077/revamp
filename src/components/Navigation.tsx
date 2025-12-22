@@ -12,7 +12,7 @@ export default function Navigation() {
 
   const navLinks = [
     { href: '#pillars', label: 'Platform' },
-    // { href: '#ai-architect', label: 'AI Architect' },
+    { href: '#ai-architect', label: 'AI Architect' },
     { href: '#calculator', label: 'Savings' },
     { href: '#about', label: 'About' },
     { href: '#blog', label: 'Blog' },

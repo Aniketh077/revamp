@@ -1,10 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import CalBookingModal from './CalBookingModal';
 
 export default function Hero() {
-  const [showCalModal, setShowCalModal] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const heroRef = useScrollReveal<HTMLDivElement>();
 
@@ -86,7 +84,12 @@ export default function Hero() {
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
             <button
-              onClick={() => setShowCalModal(true)}
+              onClick={() => {
+                const element = document.querySelector('#ai-architect');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="bg-brand-black text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-full sm:w-auto sm:min-w-[180px]"
             >
               Start Feasibility Audit
@@ -105,12 +108,6 @@ export default function Hero() {
           </div>
         </div>
       </section>
-
-      <CalBookingModal 
-        isOpen={showCalModal} 
-        onClose={() => setShowCalModal(false)}
-        calLink={import.meta.env.VITE_CAL_LINK}
-      />
 
       <style>{`
         .rotating-word-container {
