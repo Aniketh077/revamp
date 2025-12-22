@@ -55,32 +55,25 @@ export default function Hero() {
 
           {/* Headline with Rotating Words Animation */}
           <h1
-            className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.15] mb-8 text-brand-black"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.2] mb-8 text-brand-black"
             aria-label="Join the Flow Revolution, smart manufacturing means going with the flow."
           >
-            <span className="block mb-2">
-              Join the{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
-                Flow Revolution
-              </span>
+            Join the{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-brand-green">
+              Flow Revolution
             </span>
-            <span className="block">
-              Smart{' '}
-              <span className="rotating-word-container">
-                {rotatingWords.map((word, index) => (
-                  <span
-                    key={word}
-                    className={`rotating-word ${index === currentWordIndex ? 'active' : ''}`}
-                  >
-                    {word}
-                  </span>
-                ))}
-              </span>
-              {' '}means
+            , smart{' '}
+            <span className="rotating-word-container">
+              {rotatingWords.map((word, index) => (
+                <span
+                  key={word}
+                  className={`rotating-word ${index === currentWordIndex ? 'active' : ''}`}
+                >
+                  {word}
+                </span>
+              ))}
             </span>
-            <span className="block">
-              going with the flow.
-            </span>
+            {' '}means going with the flow.
           </h1>
 
           {/* Subtext */}
@@ -120,10 +113,11 @@ export default function Hero() {
 
       <style>{`
         .rotating-word-container {
-          min-width: 320px;
-          height: 1.2em;
-          vertical-align: middle;
+          position: relative;
           display: inline-block;
+          min-width: 180px;
+          height: 1.2em;
+          vertical-align: baseline;
         }
 
         .rotating-word {
@@ -145,9 +139,21 @@ export default function Hero() {
           transform: translateY(0) scale(1);
         }
 
-        @media (max-width: 768px) {
+        @media (min-width: 640px) {
           .rotating-word-container {
             min-width: 220px;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .rotating-word-container {
+            min-width: 260px;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .rotating-word-container {
+            min-width: 320px;
           }
         }
       `}</style>
