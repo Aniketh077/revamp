@@ -75,25 +75,25 @@ export default function Pillars() {
   const selectedPillar = pillars.find((p) => p.id === activePillar);
 
   return (
-    <section id="pillars" className="relative py-20 px-6 bg-gradient-to-b from-white to-brand-light overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-purple/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-orange/5 rounded-full blur-3xl"></div>
-      
+    <section id="pillars" className="relative py-16 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-white to-brand-light overflow-hidden">
+      <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-brand-purple/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-brand-orange/5 rounded-full blur-3xl"></div>
+
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-16 text-center">
+        <div className="mb-12 sm:mb-16 text-center">
           <div className="inline-block mb-4">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-brand-orange via-brand-purple to-brand-green blur-lg opacity-30"></div>
-              <h2 className="relative text-4xl md:text-5xl font-semibold tracking-tighter bg-gradient-to-r from-brand-orange via-brand-purple to-brand-green bg-clip-text text-transparent">
+              <h2 className="relative text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter bg-gradient-to-r from-brand-orange via-brand-purple to-brand-green bg-clip-text text-transparent">
                 The Flownetics Standard.
               </h2>
             </div>
           </div>
-          <p className="text-brand-gray text-lg">Click to explore each pillar.</p>
+          <p className="text-brand-gray text-base sm:text-lg">Click to explore each pillar.</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          <div className="space-y-4">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
+          <div className="space-y-3 sm:space-y-4">
             {pillars.map((pillar) => {
               const isActive = activePillar === pillar.id;
 
@@ -101,22 +101,40 @@ export default function Pillars() {
                 <div
                   key={pillar.id}
                   onClick={() => handlePillarClick(pillar.id)}
-                  className={`pillar-card p-5 rounded-2xl bg-gray-50 border transition-all duration-500 cursor-pointer hover:shadow-lg ${
+                  className={`pillar-card p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-gray-50 to-white border transition-all duration-500 cursor-pointer hover:shadow-lg group relative overflow-hidden ${
                     isActive
-                      ? 'border-brand-purple shadow-xl scale-105'
-                      : 'border-gray-100 shadow-sm'
+                      ? 'border-brand-purple shadow-xl scale-[1.02]'
+                      : 'border-gray-100 shadow-sm hover:border-gray-200'
                   }`}
                 >
-                  <div className="flex justify-between items-start mb-3">
+                  <div className="flex justify-between items-start mb-3 relative z-10">
                     <span className={`text-xs font-bold uppercase transition-colors duration-500 ${
                       isActive ? 'text-brand-purple' : 'text-gray-300'
                     }`}>
                       {pillar.number}
                     </span>
+                    <ArrowRight
+                      className={`w-4 h-4 transition-all duration-500 ${
+                        isActive
+                          ? 'text-brand-purple translate-x-0 opacity-100'
+                          : 'text-gray-400 -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
+                      }`}
+                    />
                   </div>
 
-                  <h3 className="text-lg font-semibold mb-1.5">{pillar.title}</h3>
-                  <p className="text-gray-600 text-xs leading-relaxed">{pillar.description}</p>
+                  <h3 className={`text-base sm:text-lg font-semibold mb-1.5 transition-colors duration-300 ${
+                    isActive ? 'text-brand-purple' : 'text-brand-black group-hover:text-brand-purple'
+                  }`}>
+                    {pillar.title}
+                  </h3>
+                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{pillar.description}</p>
+
+                  <div
+                    className={`absolute bottom-0 left-0 w-full h-1 transition-all duration-500 origin-left ${
+                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50'
+                    }`}
+                    style={{ backgroundColor: isActive ? '#702594' : '#e0e0e0' }}
+                  ></div>
                 </div>
               );
             })}
@@ -125,10 +143,10 @@ export default function Pillars() {
           <div className="lg:sticky lg:top-24 lg:self-start h-fit">
             {selectedPillar && (
               <div
-                className={`detail-panel bg-gradient-to-br from-gray-50 to-white border-2 border-brand-purple rounded-3xl p-6 shadow-2xl cursor-purple transition-all duration-300 ${
+                className={`detail-panel bg-gradient-to-br from-gray-50 to-white border-2 border-brand-purple rounded-3xl p-6 sm:p-8 shadow-2xl cursor-purple transition-all duration-300 ${
                   isAnimating ? 'slide-out' : 'slide-in'
                 }`}
-                style={{ minHeight: 'fit-content', maxHeight: '520px' }}
+                style={{ minHeight: 'fit-content' }}
               >
                 <div className="flex justify-between items-start mb-4">
                   <span className={`text-sm font-bold uppercase ${selectedPillar.accentColor}`}>
@@ -136,8 +154,8 @@ export default function Pillars() {
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-bold mb-2">{selectedPillar.title}</h3>
-                <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-2">{selectedPillar.title}</h3>
+                <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">
                   {selectedPillar.description}
                 </p>
 
@@ -145,7 +163,7 @@ export default function Pillars() {
                   <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
                     Technical Details
                   </h4>
-                  <p className="text-gray-700 leading-relaxed mb-4 text-sm">
+                  <p className="text-gray-700 leading-relaxed mb-4 text-sm sm:text-base">
                     {selectedPillar.detailedDescription}
                   </p>
 
@@ -156,15 +174,15 @@ export default function Pillars() {
                     <ul className="space-y-2">
                       <li className="flex items-start gap-2">
                         <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5`}></div>
-                        <span className="text-gray-700 text-xs">Industry-leading accuracy and precision</span>
+                        <span className="text-gray-700 text-xs sm:text-sm">Industry-leading accuracy and precision</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5`}></div>
-                        <span className="text-gray-700 text-xs">Comprehensive support and documentation</span>
+                        <span className="text-gray-700 text-xs sm:text-sm">Comprehensive support and documentation</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <div className={`w-1.5 h-1.5 rounded-full ${selectedPillar.accentColor} mt-1.5`}></div>
-                        <span className="text-gray-700 text-xs">Proven results in production environments</span>
+                        <span className="text-gray-700 text-xs sm:text-sm">Proven results in production environments</span>
                       </li>
                     </ul>
                   </div>
@@ -189,8 +207,39 @@ export default function Pillars() {
           transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        .pillar-card:hover {
+          transform: translateX(4px);
+        }
+
         .detail-panel {
           will-change: transform, opacity;
+          position: sticky;
+          top: 6rem;
+        }
+
+        @media (min-width: 1024px) {
+          .detail-panel {
+            max-height: calc(100vh - 12rem);
+            overflow-y: auto;
+          }
+
+          .detail-panel::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          .detail-panel::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+          }
+
+          .detail-panel::-webkit-scrollbar-thumb {
+            background: #702594;
+            border-radius: 10px;
+          }
+
+          .detail-panel::-webkit-scrollbar-thumb:hover {
+            background: #8e30bc;
+          }
         }
 
         .slide-out {
@@ -203,22 +252,22 @@ export default function Pillars() {
 
         @keyframes slideOut {
           0% {
-            transform: translateX(0) scale(1);
+            transform: translateX(0) scale(1) rotateY(0deg);
             opacity: 1;
           }
           100% {
-            transform: translateX(-30px) scale(0.95);
+            transform: translateX(-30px) scale(0.95) rotateY(-5deg);
             opacity: 0;
           }
         }
 
         @keyframes slideIn {
           0% {
-            transform: translateX(30px) scale(0.95);
+            transform: translateX(30px) scale(0.95) rotateY(5deg);
             opacity: 0;
           }
           100% {
-            transform: translateX(0) scale(1);
+            transform: translateX(0) scale(1) rotateY(0deg);
             opacity: 1;
           }
         }
